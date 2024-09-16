@@ -5,7 +5,7 @@ exports.addTransaction = async (req, res) => {
   try {
     const transaction = new Transaction({ userId, type, category, amount });
     await transaction.save();
-    res.status(201).json({ message: 'Transaction added successfully' });
+    res.status(201).json(transaction); 
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }

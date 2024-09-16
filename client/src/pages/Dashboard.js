@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -13,7 +13,7 @@ const Dashboard = () => {
       const decoded = jwtDecode(token);
       setUserId(decoded.id);
     } else {
-      window.location.href = '/login'; // Redirigir al login si no hay token
+      window.location.href = '/login';
     }
   }, []);
 
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/login'; // Redirigir al login después de cerrar sesión
+    window.location.href = '/login';
   };
 
   const handleChange = (e) => {
@@ -54,29 +54,53 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <button onClick={handleLogout}>Logout</button>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="type" value={formData.type} onChange={handleChange} placeholder="Type" required />
-        <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Category" required />
-        <input type="number" name="amount" value={formData.amount} onChange={handleChange} placeholder="Amount" required />
-        <button type="submit">Add Transaction</button>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+      <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded mb-6">Logout</button>
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md mb-6">
+        <input
+          type="text"
+          name="type"
+          value={formData.type}
+          onChange={handleChange}
+          placeholder="Type"
+          className="w-full p-2 mb-4 border rounded"
+          required
+        />
+        <input
+          type="text"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          placeholder="Category"
+          className="w-full p-2 mb-4 border rounded"
+          required
+        />
+        <input
+          type="number"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          placeholder="Amount"
+          className="w-full p-2 mb-4 border rounded"
+          required
+        />
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Add Transaction</button>
       </form>
-      <table>
+      <table className="w-full bg-white rounded shadow-md">
         <thead>
           <tr>
-            <th>Type</th>
-            <th>Category</th>
-            <th>Amount</th>
+            <th className="border p-2">Type</th>
+            <th className="border p-2">Category</th>
+            <th className="border p-2">Amount</th>
           </tr>
         </thead>
         <tbody>
           {transactions.map(transaction => (
             <tr key={transaction._id}>
-              <td>{transaction.type}</td>
-              <td>{transaction.category}</td>
-              <td>${transaction.amount}</td>
+              <td className="border p-2">{transaction.type}</td>
+              <td className="border p-2">{transaction.category}</td>
+              <td className="border p-2">${transaction.amount}</td>
             </tr>
           ))}
         </tbody>
