@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FaTrash } from 'react-icons/fa';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import PaginationControls from './PaginationControls';
+import DeleteConfirmationDialog from './DeleteConfirmDialog';
+import TransactionRow from './TransactionRow';
 
 const TransactionTable = ({ transactions, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,27 +41,13 @@ const TransactionTable = ({ transactions, onDelete }) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-          <div className="bg-white p-6 rounded shadow-md text-center">
-            <h1 className="text-xl font-bold mb-4">Confirm to delete</h1>
-            <p className="mb-4">Are you sure you want to delete this transaction?</p>
-            <div className="flex justify-center space-x-4">
-              <button
-                onClick={() => {
-                  handleDelete(id);
-                  onClose();
-                }}
-                className="bg-red-500 text-white px-4 py-2 rounded"
-              >
-                Yes
-              </button>
-              <button
-                onClick={onClose}
-                className="bg-gray-500 text-white px-4 py-2 rounded"
-              >
-                No
-              </button>
-            </div>
-          </div>
+          <DeleteConfirmationDialog
+            onConfirm={() => {
+              handleDelete(id);
+              onClose();
+            }}
+            onCancel={onClose}
+          />
         );
       }
     });
@@ -78,41 +66,16 @@ const TransactionTable = ({ transactions, onDelete }) => {
         </thead>
         <tbody>
           {currentTransactions.map(transaction => (
-            <tr key={transaction._id}>
-              <td className="border p-2">{transaction.type}</td>
-              <td className="border p-2">{transaction.category}</td>
-              <td className="border p-2">${transaction.amount}</td>
-              <td className="border p-2">
-                <button
-                  onClick={() => confirmDelete(transaction._id)}
-                  className="bg-red-500 text-white px-2 py-1 rounded flex items-center justify-center w-full"
-                >
-                  <FaTrash />
-                </button>
-              </td>
-            </tr>
+            <TransactionRow key={transaction._id} transaction={transaction} onDelete={confirmDelete} />
           ))}
         </tbody>
       </table>
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <span className="text-gray-700">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
+      <PaginationControls
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+      />
     </div>
   );
 };
