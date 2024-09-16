@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="bg-black p-4 h-16">
       <div className="container mx-auto flex justify-between items-center h-full">
         <div className="text-yellow-500 text-lg font-bold">
-          <Link to="/">BudgetBuddy</Link>
+          <Link to="/" className="hover:text-white transition-colors duration-400">BudgetBuddy</Link>
         </div>
         <div className="space-x-4">
           <Link to="/" className="text-white hover:text-yellow-500 transition-colors duration-300">Home</Link>
