@@ -73,6 +73,9 @@ const Dashboard = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    setTransactions(transactions.filter(transaction => transaction._id !== id));
+  };
   const chartData = {
     labels: todayTransactions.map(transaction => transaction.category),
     datasets: [
@@ -96,7 +99,7 @@ const Dashboard = () => {
         <TransactionForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
         <div className="flex">
           <div className="w-1/2 pr-4">
-            <TransactionTable transactions={transactions} />
+            <TransactionTable transactions={transactions} onDelete={handleDelete} />
           </div>
           <div className="w-1/2 pl-4">
             <TransactionChart chartData={chartData} />
