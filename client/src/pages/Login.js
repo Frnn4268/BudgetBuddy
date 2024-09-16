@@ -2,6 +2,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const formik = useFormik({
@@ -21,15 +23,28 @@ const Login = () => {
       try {
         const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/login`, values);
         localStorage.setItem('token', res.data.token);
-        window.location.href = '/dashboard';
+        toast.success('Logged in successfully!', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 3000); 
       } catch (error) {
         console.error(error);
+        toast.error('Login failed. Please try again.', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
       }
     },
   });
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-black">
+      <ToastContainer />
       <div className="bg-gray-800 p-6 rounded shadow-md w-full max-w-4xl mx-4 flex">
         <div className="w-1/2 hidden md:block">
           <img src="/images/login_image.jpg" alt="Login" className="h-full w-full object-cover rounded-xl" />
