@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -6,6 +6,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -80,9 +86,9 @@ const Register = () => {
                   <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
                 ) : null}
               </div>
-              <div className="mb-6">
+              <div className="mb-6 relative">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
@@ -90,6 +96,14 @@ const Register = () => {
                   placeholder="Password"
                   className={`w-full p-3 border rounded bg-gray-900 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 ${formik.touched.password && formik.errors.password ? 'border-red-500' : 'border-gray-700'}`}
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  style={{ top: '50%', transform: 'translateY(-50%)' }}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
                 {formik.touched.password && formik.errors.password ? (
                   <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
                 ) : null}
