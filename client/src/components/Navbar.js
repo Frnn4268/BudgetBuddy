@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="bg-blue-500 p-4 h-16">
       <div className="container mx-auto flex justify-between items-center h-full">
         <div className="text-white text-lg font-bold">
-          <Link to="/">Personal Finance App</Link>
+          <Link to="/">BudgetBuddy</Link>
         </div>
         <div className="space-x-4">
           <Link to="/" className="text-white hover:text-gray-200">Home</Link>

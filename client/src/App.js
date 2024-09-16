@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
       <Navbar />
-      <div className="container mx-auto p-4">
+      <div className="w-full flex flex-col">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
