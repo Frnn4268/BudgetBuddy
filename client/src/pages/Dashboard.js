@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { FaPlus, FaSignOutAlt, FaTable } from 'react-icons/fa';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import NavbarDashboard from '../components/NavbarDashboard'; 
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
+  const [todayTransactions, setTodayTransactions] = useState([]);
   const [userId, setUserId] = useState(null);
   const [formData, setFormData] = useState({ type: '', category: '', amount: '' });
 
@@ -30,7 +36,18 @@ const Dashboard = () => {
       }
     };
 
+    const fetchTodayTransactions = async () => {
+      if (!userId) return;
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/transactions`, { params: { userId } });
+        setTodayTransactions(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchTransactions();
+    fetchTodayTransactions();
   }, [userId]);
 
   const handleLogout = () => {
@@ -53,6 +70,19 @@ const Dashboard = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const chartData = {
+    labels: todayTransactions.map(transaction => transaction.category),
+    datasets: [
+      {
+        label: 'Amount',
+        data: todayTransactions.map(transaction => transaction.amount),
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        borderColor: 'rgba(255, 206, 86, 1)',
+        borderWidth: 1,
+      },
+    ],
   };
 
   return (
@@ -94,24 +124,34 @@ const Dashboard = () => {
             <FaPlus className="mr-2" /> Add Transaction
           </button>
         </form>
-        <table className="w-full bg-white rounded shadow-md">
-          <thead>
-            <tr>
-              <th className="border p-2">Type</th>
-              <th className="border p-2">Category</th>
-              <th className="border p-2">Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map(transaction => (
-              <tr key={transaction._id}>
-                <td className="border p-2">{transaction.type}</td>
-                <td className="border p-2">{transaction.category}</td>
-                <td className="border p-2">${transaction.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="flex">
+          <div className="w-1/2 pr-4">
+            <table className="w-full bg-white rounded shadow-md">
+              <thead>
+                <tr>
+                  <th className="border p-2">Type</th>
+                  <th className="border p-2">Category</th>
+                  <th className="border p-2">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map(transaction => (
+                  <tr key={transaction._id}>
+                    <td className="border p-2">{transaction.type}</td>
+                    <td className="border p-2">{transaction.category}</td>
+                    <td className="border p-2">${transaction.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="w-1/2 pl-4">
+            <div className="bg-white p-6 rounded shadow-md">
+              <h2 className="text-2xl font-bold mb-4">Today's Transactions</h2>
+              <Bar data={chartData} />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
