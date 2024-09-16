@@ -58,6 +58,32 @@ exports.getTodaySummary = async (req, res) => {
   }
 };
 
+exports.getFilteredTransactions = async (req, res) => {
+  const { userId, startDate, endDate, category, type } = req.query;
+  const filter = { userId };
+
+  if (startDate) {
+    filter.createdAt = { $gte: moment(startDate).startOf('day').toDate() };
+  }
+  if (endDate) {
+    filter.createdAt = filter.createdAt || {};
+    filter.createdAt.$lte = moment(endDate).endOf('day').toDate();
+  }
+  if (category) {
+    filter.category = category;
+  }
+  if (type) {
+    filter.type = type;
+  }
+
+  try {
+    const transactions = await Transaction.find(filter);
+    res.json(transactions);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 exports.deleteTransaction = async (req, res) => {
   const { id } = req.params;
   try {
