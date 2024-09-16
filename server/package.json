@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "BudgetBuddy - Personal Finance App",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Frnn4268",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
