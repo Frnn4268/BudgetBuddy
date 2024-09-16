@@ -11,8 +11,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:5000/api/users/login`, formData);
-      console.log(res.data);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/login`, formData);
+      localStorage.setItem('token', res.data.token);
+      window.location.href = '/dashboard'; // Redirigir al dashboard después de iniciar sesión
     } catch (error) {
       console.error(error);
     }
@@ -20,8 +21,8 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-      <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" />
+      <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+      <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required />
       <button type="submit">Login</button>
     </form>
   );
