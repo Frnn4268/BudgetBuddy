@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarDashboard from '../components/NavbarDashboard';
+import NavbarDashboard from '../components/Dashboard/NavbarDashboard';
 
 const MonthlyExpenses = () => {
 

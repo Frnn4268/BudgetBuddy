@@ -3,11 +3,11 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { FaTable } from 'react-icons/fa';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import NavbarDashboard from '../components/NavbarDashboard';
-import TransactionForm from '../components/TransactionForm';
-import TransactionTable from '../components/TransactionTable';
-import TransactionChart from '../components/TransactionChart';
-import TodaySummaryCard from '../components/TodaySummaryCard';
+import NavbarDashboard from '../components/Dashboard/NavbarDashboard';
+import TransactionForm from '../components/Dashboard/TransactionForm';
+import TransactionTable from '../components/Dashboard/TransactionTable';
+import TransactionChart from '../components/Dashboard/TransactionChart';
+import TodaySummaryCard from '../components/Dashboard/TodaySummaryCard';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

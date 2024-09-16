@@ -7,7 +7,7 @@ import Dashboard from './pages/Dashboard';
 import DetailedCharts from './pages/DetailedCharts';
 import MonthlyExpenses from './pages/MonthlyExpenses';
 import Settings from './pages/Settings';
-import Navbar from './components/Navbar';
+import Navbar from './components/Home/Navbar';
 
 const App = () => {
   const location = useLocation();
