@@ -40,8 +40,9 @@ const Dashboard = () => {
     const fetchTodayTransactions = async () => {
       if (!userId) return;
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/transactions`, { params: { userId } });
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/transactions/today-transactions`, { params: { userId } });
         setTodayTransactions(res.data);
+        console.log(res.data)
       } catch (error) {
         console.error(error);
       }

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/', addTransaction);
 router.get('/', getTransactions);
-router.get('/', getTodayTransactions);
+router.get('/today-transactions', getTodayTransactions);
 router.delete('/:id', deleteTransaction);
 
 module.exports = router;
