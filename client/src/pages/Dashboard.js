@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { FaPlus, FaSignOutAlt, FaTable } from 'react-icons/fa';
-import { Bar } from 'react-chartjs-2';
+import { FaTable } from 'react-icons/fa';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import NavbarDashboard from '../components/NavbarDashboard'; 
+import NavbarDashboard from '../components/NavbarDashboard';
+import TransactionForm from '../components/TransactionForm';
+import TransactionTable from '../components/TransactionTable';
+import TransactionChart from '../components/TransactionChart';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -92,64 +93,13 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold mb-6 flex items-center text-yellow-500">
           <FaTable className="mr-2" /> Dashboard
         </h1>
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md mb-6">
-          <input
-            type="text"
-            name="type"
-            value={formData.type}
-            onChange={handleChange}
-            placeholder="Type"
-            className="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            placeholder="Category"
-            className="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="number"
-            name="amount"
-            value={formData.amount}
-            onChange={handleChange}
-            placeholder="Amount"
-            className="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <button type="submit" className="w-full bg-gray-500 text-white font-bold p-2 rounded flex items-center justify-center">
-            <FaPlus className="mr-2" /> Add Transaction
-          </button>
-        </form>
+        <TransactionForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
         <div className="flex">
           <div className="w-1/2 pr-4">
-            <table className="w-full bg-white rounded shadow-md">
-              <thead>
-                <tr>
-                  <th className="border p-2">Type</th>
-                  <th className="border p-2">Category</th>
-                  <th className="border p-2">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions.map(transaction => (
-                  <tr key={transaction._id}>
-                    <td className="border p-2">{transaction.type}</td>
-                    <td className="border p-2">{transaction.category}</td>
-                    <td className="border p-2">${transaction.amount}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <TransactionTable transactions={transactions} />
           </div>
           <div className="w-1/2 pl-4">
-            <div className="bg-white p-6 rounded shadow-md">
-              <h2 className="text-2xl font-bold mb-4">Today's Transactions</h2>
-              <Bar data={chartData} />
-            </div>
+            <TransactionChart chartData={chartData} />
           </div>
         </div>
       </div>
