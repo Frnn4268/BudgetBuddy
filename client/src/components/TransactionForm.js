@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 
 const TransactionForm = ({ formData, handleChange, handleSubmit }) => {
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md mb-6">
+    <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md mb-6 h-full flex flex-col">
       <input
         type="text"
         name="type"
@@ -31,7 +31,7 @@ const TransactionForm = ({ formData, handleChange, handleSubmit }) => {
         className="w-full p-2 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
         required
       />
-      <button type="submit" className="w-full bg-yellow-500 text-white font-bold p-2 rounded-md flex items-center justify-center hover:bg-yellow-600 transition duration-200">
+      <button type="submit" className="w-full bg-yellow-500 text-white font-bold p-2 rounded-md flex items-center justify-center hover:bg-yellow-600 transition duration-200 mt-auto">
         <FaPlus className="mr-2" /> Add Transaction
       </button>
     </form>
