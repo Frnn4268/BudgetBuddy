@@ -38,6 +38,26 @@ exports.getTodayTransactions = async (req, res) => {
   }
 };
 
+exports.getTodaySummary = async (req, res) => {
+  const { userId } = req.query;
+  const startOfDay = moment().startOf('day').toDate();
+  const endOfDay = moment().endOf('day').toDate();
+
+  try {
+    const transactions = await Transaction.find({
+      userId,
+      createdAt: { $gte: startOfDay, $lte: endOfDay }
+    });
+
+    const totalAmount = transactions.reduce((total, transaction) => total + transaction.amount, 0);
+    const transactionCount = transactions.length;
+
+    res.json({ totalAmount, transactionCount });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 exports.deleteTransaction = async (req, res) => {
   const { id } = req.params;
   try {
