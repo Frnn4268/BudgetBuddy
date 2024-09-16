@@ -7,6 +7,7 @@ import NavbarDashboard from '../components/NavbarDashboard';
 import TransactionForm from '../components/TransactionForm';
 import TransactionTable from '../components/TransactionTable';
 import TransactionChart from '../components/TransactionChart';
+import TodaySummaryCard from '../components/TodaySummaryCard';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [todayTransactions, setTodayTransactions] = useState([]);
   const [userId, setUserId] = useState(null);
   const [formData, setFormData] = useState({ type: '', category: '', amount: '' });
+  const [todaySummary, setTodaySummary] = useState({ totalTransactions: 0, totalAmount: 0 });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -42,7 +44,20 @@ const Dashboard = () => {
       try {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/transactions/today-transactions`, { params: { userId } });
         setTodayTransactions(res.data);
-        console.log(res.data)
+
+        const totalAmount = res.data.reduce((total, transaction) => total + transaction.amount, 0);
+        const totalTransactions = res.data.length;
+        setTodaySummary({ totalTransactions, totalAmount });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchTodaySummary = async () => {
+      if (!userId) return;
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/transactions/today-summary`, { params: { userId } });
+        setTodaySummary(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -50,6 +65,7 @@ const Dashboard = () => {
 
     fetchTransactions();
     fetchTodayTransactions();
+    fetchTodaySummary();
   }, [userId]);
 
   const handleLogout = () => {
@@ -77,6 +93,7 @@ const Dashboard = () => {
   const handleDelete = (id) => {
     setTransactions(transactions.filter(transaction => transaction._id !== id));
   };
+
   const chartData = {
     labels: todayTransactions.map(transaction => transaction.category),
     datasets: [
@@ -97,8 +114,15 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold mb-6 flex items-center text-yellow-500">
           <FaTable className="mr-2" /> Dashboard
         </h1>
-        <TransactionForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
         <div className="flex">
+          <div className="w-1/2 pr-4">
+            <TransactionForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+          </div>
+          <div className="w-1/2 pl-4">
+            <TodaySummaryCard transactionCount={todaySummary.transactionCount} totalAmount={todaySummary.totalAmount} />
+          </div>
+        </div>
+        <div className="flex mt-6">
           <div className="w-1/2 pr-4">
             <TransactionTable transactions={transactions} onDelete={handleDelete} />
           </div>
