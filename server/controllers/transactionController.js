@@ -37,3 +37,13 @@ exports.getTodayTransactions = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.deleteTransaction = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Transaction.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Transaction deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
