@@ -54,28 +54,30 @@ const TransactionTable = ({ transactions, onDelete }) => {
   };
 
   return (
-    <div>
-      <table className="w-full bg-white rounded shadow-md">
-        <thead>
-          <tr>
-            <th className="border p-2">Type</th>
-            <th className="border p-2">Category</th>
-            <th className="border p-2">Amount</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentTransactions.map(transaction => (
-            <TransactionRow key={transaction._id} transaction={transaction} onDelete={confirmDelete} />
-          ))}
-        </tbody>
-      </table>
-      <PaginationControls
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handleNextPage={handleNextPage}
-        handlePreviousPage={handlePreviousPage}
-      />
+    <div className="container mx-auto">
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <table className="w-full bg-white rounded shadow-md">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="border p-2 text-left">Type</th>
+              <th className="border p-2 text-left">Category</th>
+              <th className="border p-2 text-left">Amount</th>
+              <th className="border p-2 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentTransactions.map(transaction => (
+              <TransactionRow key={transaction._id} transaction={transaction} onDelete={confirmDelete} />
+            ))}
+          </tbody>
+        </table>
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handleNextPage={handleNextPage}
+          handlePreviousPage={handlePreviousPage}
+        />
+      </div>
     </div>
   );
 };

@@ -10,7 +10,8 @@ const TransactionRow = ({ transaction, onDelete }) => {
       <td className="border p-2">
         <button
           onClick={() => onDelete(transaction._id)}
-          className="bg-red-500 text-white px-2 py-1 rounded flex items-center justify-center w-full"
+          className="bg-red-500 text-white px-2 py-1 rounded flex items-center justify-center mx-auto"
+          style={{ width: '50px' }}
         >
           <FaTrash />
         </button>
