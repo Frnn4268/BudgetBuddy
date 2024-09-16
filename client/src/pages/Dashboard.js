@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
-import NavbarDashboard from '../components/NavbarDashboard'; // Asegúrate de ajustar la ruta según tu estructura de archivos
+import { jwtDecode } from 'jwt-decode';
+import { FaPlus, FaSignOutAlt, FaTable } from 'react-icons/fa';
+import NavbarDashboard from '../components/NavbarDashboard'; 
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -58,7 +59,9 @@ const Dashboard = () => {
     <div>
       <NavbarDashboard handleLogout={handleLogout} />
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-6 flex items-center text-yellow-500">
+          <FaTable className="mr-2" /> Dashboard
+        </h1>
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md mb-6">
           <input
             type="text"
@@ -87,7 +90,9 @@ const Dashboard = () => {
             className="w-full p-2 mb-4 border rounded"
             required
           />
-          <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Add Transaction</button>
+          <button type="submit" className="w-full bg-gray-500 text-white font-bold p-2 rounded flex items-center justify-center">
+            <FaPlus className="mr-2" /> Add Transaction
+          </button>
         </form>
         <table className="w-full bg-white rounded shadow-md">
           <thead>
