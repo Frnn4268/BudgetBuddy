@@ -16,17 +16,7 @@ const TransactionTable = ({ transactions, onDelete }) => {
 
   const totalPages = Math.ceil(transactions.length / transactionsPerPage);
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleDelete = async (id) => {
     try {
@@ -55,8 +45,8 @@ const TransactionTable = ({ transactions, onDelete }) => {
 
   return (
     <div className="container mx-auto">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <table className="w-full bg-white rounded shadow-md">
+      <div>
+        <table className="w-full bg-white rounded-xl shadow-md">
           <thead className="bg-gray-200">
             <tr>
               <th className="border p-2 text-left">Type</th>
@@ -74,8 +64,7 @@ const TransactionTable = ({ transactions, onDelete }) => {
         <PaginationControls
           currentPage={currentPage}
           totalPages={totalPages}
-          handleNextPage={handleNextPage}
-          handlePreviousPage={handlePreviousPage}
+          paginate={paginate}
         />
       </div>
     </div>

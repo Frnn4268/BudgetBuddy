@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 import NavbarDashboard from '../components/Dashboard/NavbarDashboard';
 import FilterForm from '../components/DetailedCharts/FilterForm';
 import TransactionTable from '../components/DetailedCharts/TransactionTable';
@@ -42,7 +44,10 @@ const DetailedCharts = () => {
     <div>
       <NavbarDashboard handleLogout={handleLogout} />
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6 text-yellow-500">Detailed Charts</h1>
+        <h1 className="text-3xl font-bold mb-6 text-yellow-500 flex items-center">
+          <FontAwesomeIcon icon={faChartBar} className="mr-2" />
+          Detailed Charts
+        </h1>
         <div className="flex">
           <div className="w-1/2 pr-4 bg-white p-6 rounded-md shadow-xl">
             <FilterForm filters={filters} handleChange={handleChange} handleSubmit={handleSubmit} />
