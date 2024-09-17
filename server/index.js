@@ -4,12 +4,19 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const logger = require('./config/logger');
+const helmet = require('./middleware/helmet');
+const rateLimiter = require('./middleware/rateLimiter');
+const compression = require('./middleware/compression');
 
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+app.use(helmet);
+app.use(rateLimiter);
+app.use(compression);
 
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
 
