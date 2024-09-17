@@ -4,9 +4,9 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const logger = require('./config/logger');
-const helmet = require('./middleware/helmet');
-const rateLimiter = require('./middleware/rateLimiter');
-const compression = require('./middleware/compression');
+const helmet = require('./middlewares/helmet');
+const rateLimiter = require('./middlewares/rateLimiter');
+const compression = require('./middlewares/compression');
 
 dotenv.config();
 
