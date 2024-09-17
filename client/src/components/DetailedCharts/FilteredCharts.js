@@ -5,8 +5,13 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement,
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend);
 
 const FilteredCharts = ({ transactions }) => {
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   const chartData = {
-    labels: transactions.map(transaction => transaction.createdAt),
+    labels: transactions.map(transaction => formatDate(transaction.createdAt)),
     datasets: [
       {
         label: 'Amount',
@@ -19,7 +24,7 @@ const FilteredCharts = ({ transactions }) => {
   };
 
   const lineChartData = {
-    labels: transactions.map(transaction => transaction.createdAt),
+    labels: transactions.map(transaction => formatDate(transaction.createdAt)),
     datasets: [
       {
         label: 'Amount Over Time',
