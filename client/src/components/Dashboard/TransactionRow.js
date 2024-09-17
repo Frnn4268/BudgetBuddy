@@ -11,7 +11,6 @@ const TransactionRow = ({ transaction, onDelete }) => {
         <button
           onClick={() => onDelete(transaction._id)}
           className="bg-red-500 text-white px-2 py-1 rounded flex items-center justify-center mx-auto"
-          style={{ width: '50px' }}
         >
           <FaTrash />
         </button>
