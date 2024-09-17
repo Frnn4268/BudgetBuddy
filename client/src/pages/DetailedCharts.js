@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import NavbarDashboard from '../components/Dashboard/NavbarDashboard';
+import FilterForm from '../components/DetailedCharts/FilterForm';
+import TransactionTable from '../components/DetailedCharts/TransactionTable';
+import FilteredCharts from '../components/DetailedCharts/FilteredCharts';
 
 const DetailedCharts = () => {
   const [filters, setFilters] = useState({
@@ -40,72 +43,15 @@ const DetailedCharts = () => {
       <NavbarDashboard handleLogout={handleLogout} />
       <div className="p-6 bg-gray-100 min-h-screen">
         <h1 className="text-3xl font-bold mb-6 text-yellow-500">Detailed Charts</h1>
-        <form onSubmit={handleSubmit} className="mb-6">
-          <div className="mb-4">
-            <label className="block text-gray-700">Start Date</label>
-            <input
-              type="date"
-              name="startDate"
-              value={filters.startDate}
-              onChange={handleChange}
-              className="mt-1 block w-full"
-            />
+        <div className="flex">
+          <div className="w-1/2 pr-4">
+            <FilterForm filters={filters} handleChange={handleChange} handleSubmit={handleSubmit} />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">End Date</label>
-            <input
-              type="date"
-              name="endDate"
-              value={filters.endDate}
-              onChange={handleChange}
-              className="mt-1 block w-full"
-            />
+          <div className="w-1/2 pl-4">
+            <TransactionTable transactions={transactions} />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Category</label>
-            <input
-              type="text"
-              name="category"
-              value={filters.category}
-              onChange={handleChange}
-              className="mt-1 block w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Type</label>
-            <input
-              type="text"
-              name="type"
-              value={filters.type}
-              onChange={handleChange}
-              className="mt-1 block w-full"
-            />
-          </div>
-          <button type="submit" className="bg-yellow-500 text-white py-2 px-4 rounded">Filter</button>
-        </form>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Filtered Transactions</h2>
-          <table className="w-full bg-white rounded shadow-md">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="border p-2 text-left">Type</th>
-                <th className="border p-2 text-left">Category</th>
-                <th className="border p-2 text-left">Amount</th>
-                <th className="border p-2 text-left">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map(transaction => (
-                <tr key={transaction._id}>
-                  <td className="border p-2">{transaction.type}</td>
-                  <td className="border p-2">{transaction.category}</td>
-                  <td className="border p-2">{transaction.amount}</td>
-                  <td className="border p-2">{new Date(transaction.createdAt).toLocaleDateString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
+        <FilteredCharts transactions={transactions} />
       </div>
     </div>
   );
