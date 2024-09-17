@@ -84,7 +84,10 @@ const RegisterForm = () => {
         showPassword={showPassword}
         togglePasswordVisibility={togglePasswordVisibility}
       />
-      <button type="submit" className="w-full bg-yellow-500 text-black p-3 rounded hover:bg-yellow-600 transition-colors duration-300">Register</button>
+      <button type="submit" className="w-full bg-yellow-600 text-white font-bold p-3 rounded hover:bg-yellow-700 transition-colors duration-300">Register</button>
+      <div className="mt-4 text-center text-white">
+        <p>Already have an account? <a href="/login" className="text-yellow-500 hover:underline">Go to Login</a></p>
+      </div>
     </form>
   );
 };
