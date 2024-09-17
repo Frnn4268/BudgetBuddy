@@ -23,7 +23,7 @@ module.exports = {
         },
         circleMove: {
           '0%, 100%': { transform: 'translateY(0) rotate(45deg)' },
-          '50%': { transform: 'translateY(-20px) rotate(45deg)' },
+          '50%': { transform: 'translateY(-50px) rotate(45deg)' },
         },
       },
     },
