@@ -44,7 +44,7 @@ const DetailedCharts = () => {
       <div className="p-6 bg-gray-100 min-h-screen">
         <h1 className="text-3xl font-bold mb-6 text-yellow-500">Detailed Charts</h1>
         <div className="flex">
-          <div className="w-1/2 pr-4">
+          <div className="w-1/2 pr-4 bg-white p-6 rounded-md shadow-xl">
             <FilterForm filters={filters} handleChange={handleChange} handleSubmit={handleSubmit} />
           </div>
           <div className="w-1/2 pl-4">
