@@ -5,7 +5,7 @@ const FilterForm = ({ filters, handleChange, handleSubmit }) => {
     <form onSubmit={handleSubmit}>
       <h2 className="text-2xl font-bold mb-4 text-center text-yellow-500">Filter Form</h2>
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold">Start Date</label>
+        <label className="block text-gray-700 font-bold">Start Date</label>
         <input
           type="date"
           name="startDate"
@@ -15,7 +15,7 @@ const FilterForm = ({ filters, handleChange, handleSubmit }) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold">End Date</label>
+        <label className="block text-gray-700 font-bold">End Date</label>
         <input
           type="date"
           name="endDate"
@@ -25,7 +25,7 @@ const FilterForm = ({ filters, handleChange, handleSubmit }) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold">Category</label>
+        <label className="block text-gray-700 font-bold">Category</label>
         <input
           type="text"
           name="category"
@@ -35,7 +35,7 @@ const FilterForm = ({ filters, handleChange, handleSubmit }) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-semibold">Type</label>
+        <label className="block text-gray-700 font-bold">Type</label>
         <input
           type="text"
           name="type"
