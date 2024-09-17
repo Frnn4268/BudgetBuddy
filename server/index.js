@@ -19,4 +19,20 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+
+try {
+  app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+} catch (error) {
+  logger.error(`Error initializing server: ${error.message}`);
+  process.exit(1);
+}
+
+process.on('uncaughtException', (error) => {
+  logger.error(`Uncaught Exception: ${error.message}`);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error(`Unhandled Rejection at: ${promise}, reason: ${reason}`);
+  process.exit(1);
+});
