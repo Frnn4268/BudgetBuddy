@@ -40,10 +40,10 @@ const FilteredCharts = ({ transactions }) => {
     <div className="mt-6 bg-white p-6 rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Filtered Transactions Charts</h2>
       <div className="flex">
-        <div className="w-1/2 pr-2 p-4">
+        <div className="w-1/2 pr-8 p-6">
           <Bar data={chartData} />
         </div>
-        <div className="w-1/2 pl-2 p-4">
+        <div className="w-1/2 pl-8 p-6">
           <Line data={lineChartData} />
         </div>
       </div>
